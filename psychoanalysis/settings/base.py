@@ -115,7 +115,7 @@ INSTALLED_APPS = (
     'django.contrib.staticfiles',
     'psychoanalysis.apps.pa',
     # Uncomment the next line to enable the admin:
-    # 'django.contrib.admin',
+    'django.contrib.admin',
 )
 
 # A sample logging configuration. The only tangible logging
@@ -146,3 +146,5 @@ LOGGING = {
         },
     }
 }
+
+AUTH_USER_MODEL = 'pa.User'
