@@ -33,6 +33,9 @@ class Category(models.Model):
     def __unicode__(self):
         return self.description
 
+    class Meta:
+        verbose_name_plural = "Categories"
+
 
 class Activity(models.Model):
     category = models.ForeignKey(Category)
@@ -40,6 +43,9 @@ class Activity(models.Model):
 
     def __unicode__(self):
         return self.description
+
+    class Meta:
+        verbose_name_plural = "Activities"
 
 
 class ActivityEntry(models.Model):
@@ -71,4 +77,4 @@ class Participant(models.Model):
 
 
 class User(AbstractUser):
-    profession = models.ForeignKey(Profession)
+    profession = models.ForeignKey(Profession, blank=True, null=True)

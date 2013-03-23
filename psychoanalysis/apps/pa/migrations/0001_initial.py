@@ -81,7 +81,7 @@ class Migration(SchemaMigration):
             ('is_staff', self.gf('django.db.models.fields.BooleanField')(default=False)),
             ('is_active', self.gf('django.db.models.fields.BooleanField')(default=True)),
             ('date_joined', self.gf('django.db.models.fields.DateTimeField')(default=datetime.datetime.now)),
-            ('profession', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pa.Profession'])),
+            ('profession', self.gf('django.db.models.fields.related.ForeignKey')(to=orm['pa.Profession'], null=True, blank=True)),
         ))
         db.send_create_signal(u'pa', ['User'])
 
@@ -209,7 +209,7 @@ class Migration(SchemaMigration):
             'last_login': ('django.db.models.fields.DateTimeField', [], {'default': 'datetime.datetime.now'}),
             'last_name': ('django.db.models.fields.CharField', [], {'max_length': '30', 'blank': 'True'}),
             'password': ('django.db.models.fields.CharField', [], {'max_length': '128'}),
-            'profession': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pa.Profession']"}),
+            'profession': ('django.db.models.fields.related.ForeignKey', [], {'to': u"orm['pa.Profession']", 'null': 'True', 'blank': 'True'}),
             'user_permissions': ('django.db.models.fields.related.ManyToManyField', [], {'to': u"orm['auth.Permission']", 'symmetrical': 'False', 'blank': 'True'}),
             'username': ('django.db.models.fields.CharField', [], {'unique': 'True', 'max_length': '30'})
         }
