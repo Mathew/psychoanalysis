@@ -31,6 +31,21 @@ var Categories = Backbone.Collection.extend({
 });
 
 
+var CategoriesView = Backbone.View.extend({
+
+    render: function() {
+
+        this.collection.each(function(category) {
+            console.log(category);
+        });
+
+        this.$el.html(_.template($('#template-categories').html(), {categories: this.collection.toJSON()}));
+    }
+
+
+});
+
+
 $(document).ready(function() {
 
     var categories_data = [
@@ -44,7 +59,7 @@ $(document).ready(function() {
                     description: 'Activity 2',
                 },
                 {
-                    descritpion: 'Activity 3'
+                    description: 'Activity 3'
                 }
             ]
         },
@@ -58,12 +73,15 @@ $(document).ready(function() {
                     description: 'Activity 5',
                 },
                 {
-                    descritpion: 'Activity 6'
+                    description: 'Activity 6'
                 }
             ]
         }
     ];
 
     var categories = new Categories(categories_data);
+
+    var categories_view = new CategoriesView({el: '.categories', collection: categories});
+    categories_view.render();
 
 });
