@@ -7,7 +7,7 @@
 end
 
 if node.has_key?("dev_env")
-    cookbook_file "/etc/postgresql/8.4/main/pg_hba.conf" do
+    cookbook_file "/etc/postgresql/9.1/main/pg_hba.conf" do
         source "pg_hba_dev.conf"
         mode 0600
         owner "postgres"
@@ -15,7 +15,7 @@ if node.has_key?("dev_env")
         action :create
     end
 else
-    cookbook_file "/etc/postgresql/8.4/main/pg_hba.conf" do
+    cookbook_file "/etc/postgresql/9.1/main/pg_hba.conf" do
         source "pg_hba.conf"
         mode 0600
         owner "postgres"
@@ -27,19 +27,20 @@ end
 # Hackin' it up.
 
 service "postgresql" do
-  service_name "postgresql-8.4"
+  service_name "postgresql"
   supports :restart => true, :status => true, :reload => true
   action :restart
 end
 
 if node.has_key?("dev_env")
     execute "postgres-listen" do
-        command "echo \"listen_addresses = 'localhost'\" >> /etc/postgresql/8.4/main/postgresql.conf"
+        command "echo \"listen_addresses = 'localhost'\" >> /etc/postgresql/9.1/main/postgresql.conf"
         notifies :restart, resources(:service => "postgresql")
     end
 
     execute "postgres-vagrant-user" do
         command "sudo -u postgres psql -c \"CREATE ROLE vagrant LOGIN SUPERUSER\""
+        not_if "sudo -u postgres -p #{node[:postgres_password]} psql -c \"SELECT * FROM pg_roles;\" | grep -i vagrant"
         notifies :restart, resources(:service => "postgresql")
     end
 end
