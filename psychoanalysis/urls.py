@@ -7,6 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^', include('psychoanalysis.apps.pa.urls')),
+    url(r'^', include('psychoanalysis.apps.pauth.urls')),
+    url(r'^padmin/', include('psychoanalysis.apps.padmin.urls')),
     # Examples:
     # url(r'^$', 'psychoanalysis.views.home', name='home'),
     # url(r'^psychoanalysis/', include('psychoanalysis.foo.urls')),
