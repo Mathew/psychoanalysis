@@ -113,6 +113,7 @@ INSTALLED_APPS = (
     'django.contrib.sites',
     'django.contrib.messages',
     'django.contrib.staticfiles',
+    'psychoanalysis.apps.pa',
     # Uncomment the next line to enable the admin:
     # 'django.contrib.admin',
 )
