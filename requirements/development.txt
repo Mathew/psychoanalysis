@@ -1,0 +1,5 @@
+-r _base.txt
+
+django-debug-toolbar == 0.9.4
+ipdb == 0.7
+psycopg2 == 2.4.6
