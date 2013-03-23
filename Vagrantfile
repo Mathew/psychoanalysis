@@ -1,13 +1,17 @@
 Vagrant::Config.run do |config|
 
-  config.vm.box = "lucid32"
-  config.vm.box_url = "http://files.vagrantup.com/lucid32.box"
+  config.vm.box = "precise64"
+  config.vm.box_url = "http://files.vagrantup.com/precise64.box"
 
   config.vm.network :hostonly, "33.33.33.10"
   config.vm.forward_port 8000, 8000
 
   config.vm.customize ["modifyvm", :id, "--rtcuseutc", "on"]
+  # Fix VM DNS issues on Ubuntu
+  config.vm.customize ["modifyvm", :id, "--natdnshostresolver1", "on"]
   config.vm.provision :chef_solo do |chef|
+  config.vm.customize ["modifyvm", :id, "--memory", 2048]
+
 
   #chef.recipe_url = "http://cloud.github.com/downloads/Mathew/chef_recipes/cookbooks.tar.gz"
   #chef.cookbooks_path = [:vm, "cookbooks"]
