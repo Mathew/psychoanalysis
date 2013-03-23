@@ -70,6 +70,9 @@ class ActivityEntry(models.Model):
 class Profession(models.Model):
     name = models.CharField(max_length=60)
 
+    def __unicode__(self):
+        return self.name
+
 
 class Participant(models.Model):
     reporting_period = models.ForeignKey(ReportingPeriod)
