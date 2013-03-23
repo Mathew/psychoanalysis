@@ -1,9 +1,22 @@
 {% block head %}
 
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Bootstrap -->
+    <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}css/bootstrap-select.css" rel="stylesheet" media="screen">
+    <link href="{{ STATIC_URL }}css/datepicker.css" rel="stylesheet" media="screen">
+
+    <script src="http://code.jquery.com/jquery.min.js"></script>
+    <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
+    <script src="{{ STATIC_URL }}js/json2.js"></script>
+    <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-select.js"></script>
+    <script src="{{ STATIC_URL }}js/bootstrap-datepicker.js"></script>
 	{% block head_extra %}
 	{% endblock %}
 
-{% block head %}
+{% endblock %}
 
 {% block content %}
 
