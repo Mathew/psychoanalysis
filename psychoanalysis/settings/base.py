@@ -146,3 +146,5 @@ LOGGING = {
         },
     }
 }
+
+AUTH_USER_MODEL = 'pa.User'
