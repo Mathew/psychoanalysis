@@ -27,44 +27,33 @@
     <body>
         <h1>Day 1 Activity Tracking</h1>
 
-        <div class="row-fluid">
-            <div class="span2">
-                <p class="text-center" style="line-height: 28px">0 - 15</p>
-            </div>
 
-            <div class="span6 categories">
-            </div>
+        <div id="test">
+
         </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <p class="text-center" style="line-height: 28px">15 - 30</p>
-            </div>
 
-            <div class="span6 categories">
-            </div>
+        <script type="text/html" id="template-activity-entry">
+            <div class="row-fluid">
+                <div class="span2">
+                    <p class="text-center" style="line-height: 28px">45 - 60</p>
+                </div>
 
-            <button class="btn span3">Same</button>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <p class="text-center" style="line-height: 28px">30 - 45</p>
-            </div>
+                <div class="span6 categories">
+                    <select class="selectpicker span12">
+                        <option>---</option>
+                        <% _.each(categories, function(category) { %>
+                            <optgroup label="<%= category.description %>">
+                            <% _.each(category.activities, function(activity) { %>
+                                <option><%= activity.description %></option>
+                            <% }); %>
+                            </optgroup>
+                        <% }); %>
+                    </select>
+                </div>
 
-            <div class="span6 categories">
+                <button class="btn span3">Same</button>
             </div>
-
-            <button class="btn span3">Same</button>
-        </div>
-        <div class="row-fluid">
-            <div class="span2">
-                <p class="text-center" style="line-height: 28px">45 - 60</p>
-            </div>
-
-            <div class="span6 categories">
-            </div>
-
-            <button class="btn span3">Same</button>
-        </div>
+        </script>
 
         <script type="text/html" id="template-categories">
             <select class="selectpicker span12">

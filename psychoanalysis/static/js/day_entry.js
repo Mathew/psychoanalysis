@@ -12,6 +12,16 @@ var Activities = Backbone.Collection.extend({
 });
 
 
+var ActivityEntry = Backbone.Model.extend({
+    defaults: {
+        day: null,
+        hour: null,
+        slot: null,
+        activity: null,
+    }
+});
+
+
 var Category = Backbone.Model.extend({
     activities: null,
 
@@ -34,14 +44,37 @@ var Categories = Backbone.Collection.extend({
 var CategoriesView = Backbone.View.extend({
 
     render: function() {
-
-        this.collection.each(function(category) {
-            console.log(category);
-        });
-
-        this.$el.html(_.template($('#template-categories').html(), {categories: this.collection.toJSON()}));
+        this.$el.html(
+            _.template(
+                $('#template-categories').html(),
+                {categories: this.collection.toJSON()}
+            )
+        );
     }
 
+
+});
+
+
+var ActivityEntryView = Backbone.View.extend({
+
+    initialize: function(options) {
+        this.categories = options['categories'];
+    },
+
+    render: function() {
+
+        this.$el.html(
+            _.template(
+                $('#template-activity-entry').html(),
+                {
+                    activity: this.model.toJSON(),
+                    categories: this.categories.toJSON()
+                }
+            )
+        );
+
+    }
 
 });
 
@@ -83,5 +116,10 @@ $(document).ready(function() {
 
     var categories_view = new CategoriesView({el: '.categories', collection: categories});
     categories_view.render();
+
+
+    var activity_entry_00 = new ActivityEntry({day: 1, hour: 1, slot: 1})
+    var activity_entry_view = new ActivityEntryView({el: '#test', model: activity_entry_00, categories: categories});
+    activity_entry_view.render();
 
 });
