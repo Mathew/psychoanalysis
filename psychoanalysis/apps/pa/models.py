@@ -19,6 +19,13 @@ class Category(models.Model):
         max_length=15, choices=GROUPING_CHOICES, default=DIRECT
     )
 
+    def describe_self(self):
+        data = {
+            'description': self.description,
+            'activities': [a.describe_self() for a in self.activity_set.all()]
+        }
+        return data
+
     def __unicode__(self):
         return self.description
 
@@ -37,10 +44,19 @@ class ReportingPeriod(models.Model):
     def __unicode__(self):
         return self.name
 
+    def describe_categories(self):
+        return [c.describe_self() for c in self.categories.all()]
+
+    def retrieve_entries(self):
+        pass
+
 
 class Activity(models.Model):
     category = models.ForeignKey(Category)
     description = models.CharField(max_length=200)
+
+    def describe_self(self):
+        return {'description': self.description}
 
     def __unicode__(self):
         return self.description
