@@ -27,7 +27,11 @@ def make_line(data_list, params):
 def make_bar(data_list, params):
     ret_str = make_data_block(data_list, params)
 
-    ret_str += "var chart = new google.visualization.BarChart(document.getElementById('chart_div'));\r\n"
+    if 'vertical' in params:
+        ret_str += "var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));\r\n"
+    else:
+        ret_str += "var chart = new google.visualization.BarChart(document.getElementById('chart_div'));\r\n"
+
     return ret_str
 
 
@@ -95,7 +99,7 @@ def build_options(the_options):
     if 'title' in the_options:
         ret_str += the_options['title']
     else:
-        ret_str +=  'Pie Chart'
+        ret_str +=  'Chart'
     ret_str +=  '",\r\n'
 
     if 'width' in the_options:
