@@ -3,16 +3,6 @@ from django.contrib.auth.models import AbstractUser
 from django.db import models
 
 
-class ReportingPeriod(models.Model):
-    name = models.CharField(max_length=120)
-    start_date = models.DateTimeField()
-    end_date = models.DateTimeField()
-    slots_per_hour = models.IntegerField()
-
-    def __unicode__(self):
-        return self.name
-
-
 class Category(models.Model):
     DIRECT = 'd'
     INDIRECT = 'i'
@@ -22,7 +12,6 @@ class Category(models.Model):
         (INDIRECT, 'Indirect'),
         (OTHER, 'Other'),
     )
-    reporting_period = models.ForeignKey(ReportingPeriod)
     description = models.CharField(max_length=200)
     # Ugly hack to be replaced with a tree-structured category capability
     # Potentially django-treebeard / other mptt implementation.
@@ -35,6 +24,18 @@ class Category(models.Model):
 
     class Meta:
         verbose_name_plural = "Categories"
+
+
+class ReportingPeriod(models.Model):
+    name = models.CharField(max_length=120)
+    start_date = models.DateTimeField()
+    end_date = models.DateTimeField()
+    slots_per_hour = models.IntegerField()
+    user = models.ManyToManyField(settings.AUTH_USER_MODEL, blank=True, null=True)
+    categories = models.ManyToManyField(Category, blank=True, null=True)
+
+    def __unicode__(self):
+        return self.name
 
 
 class Activity(models.Model):
@@ -72,11 +73,6 @@ class Profession(models.Model):
 
     def __unicode__(self):
         return self.name
-
-
-class Participant(models.Model):
-    reporting_period = models.ForeignKey(ReportingPeriod)
-    user = models.ManyToManyField(settings.AUTH_USER_MODEL)
 
 
 class User(AbstractUser):
