@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Activity Tracking</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <!-- Bootstrap -->
+        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+        <link href="{{ STATIC_URL }}css/bootstrap-select.css" rel="stylesheet" media="screen">
+    </head>
+
+    <body>
+        <h1>Day 1 Activity Tracking</h1>
+
+        <div class="row-fluid">
+            <div class="span2">
+                0 - 15
+            </div>
+
+            <div class="span6">
+                <select class="selectpicker span12">
+                    <option>---</option>
+                    <optgroup label="Picnic">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </optgroup>
+                    <optgroup label="Camping">
+                        <option>Tent</option>
+                        <option>Flashlight</option>
+                        <option>Toilet Paper</option>
+                    </optgroup>
+                </select>
+            </div>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                15 - 30
+            </div>
+
+            <div class="span6">
+                <select class="selectpicker span12">
+                    <option>---</option>
+                    <optgroup label="Picnic">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </optgroup>
+                    <optgroup label="Camping">
+                        <option>Tent</option>
+                        <option>Flashlight</option>
+                        <option>Toilet Paper</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <button class="btn span3">Same</button>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                30 - 45
+            </div>
+
+            <div class="span6">
+                <select class="selectpicker span12">
+                    <option>---</option>
+                    <optgroup label="Picnic">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </optgroup>
+                    <optgroup label="Camping">
+                        <option>Tent</option>
+                        <option>Flashlight</option>
+                        <option>Toilet Paper</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <button class="btn span3">Same</button>
+        </div>
+        <div class="row-fluid">
+            <div class="span2">
+                45 - 60
+            </div>
+
+            <div class="span6">
+                <select class="selectpicker span12">
+                    <option>---</option>
+                    <optgroup label="Picnic">
+                        <option>Mustard</option>
+                        <option>Ketchup</option>
+                        <option>Relish</option>
+                    </optgroup>
+                    <optgroup label="Camping">
+                        <option>Tent</option>
+                        <option>Flashlight</option>
+                        <option>Toilet Paper</option>
+                    </optgroup>
+                </select>
+            </div>
+
+            <button class="btn span3">Same</button>
+        </div>
+
+        <script src="http://code.jquery.com/jquery.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+        <script src="{{ STATIC_URL }}js/bootstrap-select.js"></script>
+        <script type="text/javascript">
+            $('.selectpicker').selectpicker({
+                size: false,
+            });
+        </script>
+    </body>
+</html>
