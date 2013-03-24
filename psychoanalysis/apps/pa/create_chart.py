@@ -18,6 +18,8 @@ def create_chart(num=0, chart_type='bar'):
     if chart_type == 'bar'
         if (num % 3) == 2:
         	params['stacked'] = True
+        if num >= 4:
+        	params['vertical'] = True
 
     if num == 0:
         params['title'] = 'Time by person'
