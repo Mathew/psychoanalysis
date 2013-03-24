@@ -69,7 +69,10 @@ class ReportingPeriod(models.Model):
         # barf
         for x in xrange(8, 19):
             for y in xrange(1, self.slots_per_hour + 1):
-                ActivityEntry.objects.get_or_create(day=day, user=user, hour=x, slot=y)
+                ActivityEntry.objects.get_or_create(
+                    day=day, user=user,
+                    hour=x, slot=y, reporting_period=self
+                )
 
 
 class Activity(models.Model):

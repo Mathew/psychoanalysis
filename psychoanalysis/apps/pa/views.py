@@ -49,8 +49,6 @@ def reporting_period_view(request, reporting_period_id):
     for x in xrange(1, diff.days + 1):
         data.append(create_date_info(period.start_date, x, reporting_period_id))
 
-    print data
-
     return render(request, 'pa/reporting_period_view.html', {
         'dates': data
     })
