@@ -6,5 +6,5 @@ while true;
     git push heroku master -f;
     heroku run "python ./manage.py syncdb --settings=psychoanalysis.settings.production";
     heroku run "python ./manage.py migrate --settings=psychoanalysis.settings.production";
-    sleep 60;
+    sleep 300;
 done;
