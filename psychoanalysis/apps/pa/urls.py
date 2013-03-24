@@ -1,8 +1,8 @@
-from django.conf.urls import patterns  # , include, url
+from django.conf.urls import patterns, url
 
 
 urlpatterns = patterns(
-    '',
-    # url(r'^$', 'psychoanalysis.views.home', name='home'),
-    # url(r'^psychoanalysis/', include('psychoanalysis.foo.urls')),
+    'psychoanalysis.apps.pa.views',
+    url(r'^entry/(?P<reporting_period_id>\d+)/day/(?P<day>\d+)/$', 'day_view',
+        name='entry_day'),
 )

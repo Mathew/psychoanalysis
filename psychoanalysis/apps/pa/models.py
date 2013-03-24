@@ -56,7 +56,7 @@ class ReportingPeriod(models.Model):
 
     def retrieve_user_entries_by_day(self, user, day):
         # barf
-        return self.retrieve_user_entries.filter(day=day)
+        return self.retrieve_user_entries(user).filter(day=day)
 
 
 class Activity(models.Model):
