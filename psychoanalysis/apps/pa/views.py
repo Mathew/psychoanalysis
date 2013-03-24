@@ -3,11 +3,13 @@ import simplejson
 
 from django.contrib.auth.decorators import login_required
 from django.shortcuts import render
+from django.views.decorators.csrf import csrf_exempt
 
 from .models import ActivityEntry, ReportingPeriod
 
 
-@login_required()
+@csrf_exempt
+@login_required
 def day_view(request, reporting_period_id, day):
     period = ReportingPeriod.objects.get(pk=reporting_period_id)
 
@@ -18,10 +20,11 @@ def day_view(request, reporting_period_id, day):
     entries = simplejson.dumps([e.to_dict() for e in entries])
 
     if request.POST:
-        for k, v in simplejson.loads(request.POST['data']):
-            ae = ActivityEntry.objects.get(pk=k)
-            ae.activity_pk = v
-            ae.save()
+        for item in simplejson.loads(request.POST['data']):
+            for k, v in item.items():
+                ae = ActivityEntry.objects.get(pk=k)
+                ae.activity_id = v
+                ae.save()
 
     category_info = period.describe_categories()
 
@@ -40,7 +43,7 @@ def create_date_info(base, x, reporting_period_id):
     }
 
 
-@login_required()
+@login_required
 def reporting_period_view(request, reporting_period_id):
     period = ReportingPeriod.objects.get(pk=reporting_period_id)
     data = []

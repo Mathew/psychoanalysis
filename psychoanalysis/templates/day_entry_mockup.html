@@ -1,93 +1,126 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <title>Activity Tracking</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <!-- Bootstrap -->
-        <link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
-        <link href="{{ STATIC_URL }}css/bootstrap-select.css" rel="stylesheet" media="screen">
+	<head>
+		<title>Activity Tracking</title>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0">
+		<!-- Bootstrap -->
+		<link href="{{ STATIC_URL }}css/bootstrap.min.css" rel="stylesheet" media="screen">
+		<link href="{{ STATIC_URL }}css/bootstrap-select.css" rel="stylesheet" media="screen">
 
-        <script src="http://code.jquery.com/jquery.min.js"></script>
-        <script src="{{ STATIC_URL }}js/underscore-min.js"></script>
-        <script src="{{ STATIC_URL }}js/json2.js"></script>
-        <script src="{{ STATIC_URL }}js/backbone-min.js"></script>
-        <script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
-        <script src="{{ STATIC_URL }}js/bootstrap-select.js"></script>
-        <script src="{{ STATIC_URL }}js/day_entry.js"></script>
-        <script type="text/javascript">
-            $(document).ready(function() {
+		<script src="http://code.jquery.com/jquery.min.js"></script>
+		<script src="{{ STATIC_URL }}js/underscore-min.js"></script>
+		<script src="{{ STATIC_URL }}js/json2.js"></script>
+		<script src="{{ STATIC_URL }}js/backbone-min.js"></script>
+		<script src="{{ STATIC_URL }}js/bootstrap.min.js"></script>
+		<script src="{{ STATIC_URL }}js/bootstrap-select.js"></script>
+		<script src="{{ STATIC_URL }}js/day_entry.js"></script>
+		<script type="text/javascript">
+			$(document).ready(function() {
 
-                var categories_data = {{ category_data|safe }};
+				var categories_data = {{ category_data|safe }};
 
-                var categories = new Categories(categories_data);
+				var categories = new Categories(categories_data);
 
-                var activity_entries = new ActivityEntries({{ entries|safe }});
+				var activity_entries = new ActivityEntries({{ entries|safe }});
 
-                var activity_entries_view = new ActivityEntriesView({el: '#activity_container', collection: activity_entries, categories: categories});
-                activity_entries_view.render();
+				var activity_entries_view = new ActivityEntriesView({el: '#activity_container', collection: activity_entries, categories: categories});
+				activity_entries_view.render();
 
-                $('.selectpicker').selectpicker({
-                    size: false,
-                });
+				$('.selectpicker').selectpicker({
+					size: false,
+				});
 
-            });
-        </script>
+			});
+		</script>
 
-    </head>
+	</head>
 
-    <body>
-        <h1>Day 1 Activity Tracking</h1>
+	<body>
+		<h1>Day {{ day }} Activity Tracking</h1>
 
 
-        <form action="">
-            <div id="activity_container">
+		<form action="">
+			<div id="activity_container">
 
-            </div>
+			</div>
 
-            <div class="row-fluid">
-                <button class="btn btn-primary span3 offset8" type="submit">Submit</button>
-            </div>
-        </form>
+			<div class="row-fluid">
+				<button id="BOOM" class="btn btn-primary span3 offset8" type="submit">Submit</button>
+			</div>
+		</form>
 
-        <script type="text/html">
-            {{ entries|safe }}
-        </script>
+		<script type="text/html">
+			{{ entries|safe }}
+		</script>
 
-        <script type="text/html" id="template-activity-entry">
-            <div class="row-fluid">
-                <div class="span2">
-                    <p class="text-center" style="line-height: 28px"><%= activity_entry.hour %></p>
-                </div>
+		<script type="text/html" id="template-activity-entry">
+			<div class="row-fluid">
+				<div class="span2">
+					<p class="text-center" style="line-height: 28px"><%= activity_entry.hour %></p>
+				</div>
 
-                <div class="span6 categories">
-                    <select class="selectpicker span12">
-                        <option>---</option>
-                        <% _.each(categories, function(category) { %>
-                            <optgroup label="<%= category.description %>">
-                            <% _.each(category.activities, function(activity) { %>
-                                <option value="<%= activity.id %>"><%= activity.description %></option>
-                            <% }); %>
-                            </optgroup>
-                        <% }); %>
-                    </select>
-                </div>
+				<div class="span6 categories">
+					<select id="<%= activity_entry.id %>" class="selectpicker span12">
+						<option>---</option>
+						<% _.each(categories, function(category) { %>
+							<optgroup label="<%= category.description %>">
+							<% _.each(category.activities, function(activity) { %>
+								<option value="<%= activity.id %>"
+								<% if (activity.id == activity_entry.id) { %>
+									selected
+								<% } %>
 
-                <button class="btn span3">Same</button>
-            </div>
-        </script>
+								><%= activity.description %></option>
+							<% }); %>
+							</optgroup>
+						<% }); %>
+					</select>
+				</div>
+			</div>
+		</script>
 
-        <script type="text/html" id="template-categories">
-            <select class="selectpicker span12">
-            <option>---</option>
-            <% _.each(categories, function(category) { %>
-                <optgroup label="<%= category.description %>">
-                <% _.each(category.activities, function(activity) { %>
-                    <option><%= activity.description %></option>
-                <% }); %>
-                </optgroup>
-            <% }); %>
-            </select>
-        </script>
+		<script type="text/html" id="template-categories">
+			<select class="selectpicker span12">
+			<option>---</option>
+			<% _.each(categories, function(category) { %>
+				<optgroup label="<%= category.description %>">
+				<% _.each(category.activities, function(activity) { %>
+					<option><%= activity.description %></option>
+				<% }); %>
+				</optgroup>
+			<% }); %>
+			</select>
+		</script>
 
-    </body>
+		<script type="text/javascript">
+			$().ready(function() {
+				$('#BOOM').on("click", function(event){
+					event.preventDefault();
+					var data = '['
+					$('select').each(function () {
+						id = this.id;
+						value = $(this).val();
+
+						if (value != "---") {
+							data = data + '{"' + id + '": "' + value + '"},'
+						}
+					});
+
+					data = data.substring(0, data.length-1) + ']'
+
+					$('body').append(
+						" \
+							<form style='display:none;' method='post' action='#'> \
+								<input name='data' value='"  +
+									data +
+								"' /> \
+							<button id='dontleave' type='submit'>DONE</button> \
+							</form> \
+					");
+					$('#dontleave').trigger('click');
+				});
+			});
+		</script>
+
+	</body>
 </html>
