@@ -144,6 +144,8 @@ $(document).ready(function() {
 
     var categories = new Categories(categories_data);
 
+
+
     var activity_entries = new ActivityEntries([
         {day: 1, hour: 1, slot: 1, label: '0 - 15'},
         {day: 1, hour: 1, slot: 2, label: '15 - 30'},
@@ -151,7 +153,7 @@ $(document).ready(function() {
         {day: 1, hour: 1, slot: 4, label: '45 - 60'}
     ]);
 
-    var activity_entries_view = new ActivityEntriesView({el: '#test', collection: activity_entries, categories: categories});
+    var activity_entries_view = new ActivityEntriesView({el: '#activity_container', collection: activity_entries, categories: categories});
     activity_entries_view.render();
 
 });
