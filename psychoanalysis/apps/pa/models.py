@@ -50,15 +50,20 @@ class ReportingPeriod(models.Model):
         return [c.describe_self() for c in self.categories.all()]
 
     def retrieve_user_entries(self, user):
-        # barf
-        return ActivityEntry.objects.filter(
+        entries = ActivityEntry.objects.filter(
             user=user,
-            activity__category__reportingperiod=self
+            reporting_period=self
         )
 
+        return entries
+
     def retrieve_user_entries_by_day(self, user, day):
-        # barf
-        return self.retrieve_user_entries(user).filter(day=day)
+        entries = ActivityEntry.objects.filter(
+            user=user,
+            reporting_period=self,
+            day=day
+        )
+        return entries
 
     def create_user_day_entries(self, user, day):
         # barf
@@ -90,6 +95,7 @@ class ActivityEntry(models.Model):
     slot = models.IntegerField()
     activity = models.ForeignKey(Activity, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
+    reporting_period = models.ForeignKey(ReportingPeriod)
 
     def __unicode__(self):
         return "{0} {1} - {2}/{3}".format(
