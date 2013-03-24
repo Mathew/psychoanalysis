@@ -14,7 +14,7 @@ def day_view(request, reporting_period_id, day):
     category_info = period.describe_categories()
 
     return render(request, 'day_entry_mockup.html', {
-        'category_data': category_info,
-        'entries': entries,
+        'category_data': simplejson.dumps(category_info),
+        'entries': simplejson.dumps(entries),
         'day': day,
     })
