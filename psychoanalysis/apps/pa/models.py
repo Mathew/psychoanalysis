@@ -59,6 +59,12 @@ class ReportingPeriod(models.Model):
         # barf
         return self.retrieve_user_entries(user).filter(day=day)
 
+    def create_user_day_entries(self, user, day):
+        # barf
+        for x in xrange(8, 19):
+            for y in xrange(1, self.slots_per_hour + 1):
+                ActivityEntry.objects.get_or_create(day=day, user=user, hour=x, slot=y)
+
 
 class Activity(models.Model):
     category = models.ForeignKey(Category)
@@ -78,7 +84,7 @@ class ActivityEntry(models.Model):
     day = models.CharField(max_length=10)
     hour = models.IntegerField()
     slot = models.IntegerField()
-    activity = models.ForeignKey(Activity)
+    activity = models.ForeignKey(Activity, blank=True, null=True)
     user = models.ForeignKey(settings.AUTH_USER_MODEL)
 
     def __unicode__(self):
@@ -90,7 +96,7 @@ class ActivityEntry(models.Model):
         )
 
     def to_dict(self):
-        return model_to_dict(self, fields=['day', 'hour', 'slot', 'activity', 'user'])
+        return model_to_dict(self, fields=['id', 'day', 'hour', 'slot', 'activity', 'user'])
 
     class Meta:
         verbose_name_plural = "Activity entries"
