@@ -1,4 +1,5 @@
 from django.conf.urls import patterns, include, url
+from django.views.generic import TemplateView
 # Uncomment the next two lines to enable the admin:
 from django.contrib import admin
 admin.autodiscover()
@@ -8,6 +9,8 @@ urlpatterns = patterns(
     url(r'^', include('psychoanalysis.apps.pa.urls')),
     url(r'^', include('psychoanalysis.apps.pauth.urls')),
     url(r'^', include('psychoanalysis.apps.padmin.urls')),
+    url(r'^$', TemplateView.as_view(template_name="base.html"),
+        name="home"),
     # Examples:
     # url(r'^$', 'psychoanalysis.views.home', name='home'),
     # url(r'^psychoanalysis/', include('psychoanalysis.foo.urls')),
