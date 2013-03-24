@@ -1,4 +1,4 @@
-from django.conf.urls import patterns, url
+from django.conf.urls import patterns
 
 
 urlpatterns = patterns(
@@ -8,3 +8,4 @@ urlpatterns = patterns(
     url(r'^entry-list/(?P<reporting_period_id>\d+)/$', 'reporting_period_view',
         name='reporting_period_view'),
 )
+
