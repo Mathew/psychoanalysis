@@ -1,6 +1,13 @@
+from psychoanalysis.apps.pa.create_chart import create_chart
 from django.shortcuts import render
 
 
-def chart_view(request):
+def chart_view(request, data=1, chart_type='bar'):
+    print data
+    print chart_type
 
-    create_chart(1)
+    head = create_chart(int(data), chart_type)
+
+    return render(request, 'padmin/admin_index.html', {
+        'chart_head': head,
+    })

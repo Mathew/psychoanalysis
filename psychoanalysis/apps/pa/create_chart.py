@@ -5,7 +5,7 @@ from psychoanalysis.apps.pa import charting
 def create_chart(num=0, chart_type='bar'):
     query = {}
     if (num % 1) == 1:
-    	query['result type'] = 'percent'
+        query['result type'] = 'percent'
 
     if num >= 4:
         query['data set'] = 2
@@ -15,11 +15,11 @@ def create_chart(num=0, chart_type='bar'):
     params = {}
     params['width'] = 600
     params['height'] = 600
-    if chart_type == 'bar'
+    if chart_type == 'bar':
         if (num % 3) == 2:
-        	params['stacked'] = True
+            params['stacked'] = True
         if num >= 4:
-        	params['vertical'] = True
+            params['vertical'] = True
 
     if num == 0:
         params['title'] = 'Time by person'
@@ -30,5 +30,5 @@ def create_chart(num=0, chart_type='bar'):
     elif num == 3:
         params['title'] = 'Percentage time by category'
 
-    return charting.make_chart(chart_type, the_list, params):
+    return charting.make_chart(chart_type, the_list, params)
 

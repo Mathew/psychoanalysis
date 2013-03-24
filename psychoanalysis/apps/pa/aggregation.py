@@ -14,7 +14,7 @@ def make_query(query_dict):
     if 'data set' in query_dict:
         data_set = 2
 
-    get_data_set(data_set)
+    the_list = get_data_set(data_set)
 
     return the_list
 

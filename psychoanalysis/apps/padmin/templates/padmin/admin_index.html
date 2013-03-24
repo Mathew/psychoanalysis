@@ -1,4 +1,16 @@
 {% extends "base.html" %}
 
+{% block head_extra %}
+	{{ chart_head|safe }}
+{% endblock %}
+
 {% block content %}
+	<ul>
+		<li><a href="{% url 'chart_view' data=1 chart_type='bar' %}">Bar Chart</a>
+		<li><a href="{% url 'chart_view' data=1 chart_type='line' %}">line Chart</a>
+		<li><a href="{% url 'chart_view' data=1 chart_type='pie' %}">pie Chart</a>
+	</ul>
+
+
+	<div id="chart_div" style="width: 90%; height: 90%;"></div>
 {% endblock %}
