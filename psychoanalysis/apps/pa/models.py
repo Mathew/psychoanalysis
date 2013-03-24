@@ -23,7 +23,8 @@ class Category(models.Model):
     def describe_self(self):
         data = {
             'description': self.description,
-            'activities': [a.describe_self() for a in self.activity_set.all()]
+            'activities': [a.describe_self() for a in self.activity_set.all()],
+            'id': self.id
         }
         return data
 
@@ -71,7 +72,10 @@ class Activity(models.Model):
     description = models.CharField(max_length=200)
 
     def describe_self(self):
-        return {'description': self.description}
+        return {
+            'description': self.description,
+            'id': self.id
+        }
 
     def __unicode__(self):
         return self.description
