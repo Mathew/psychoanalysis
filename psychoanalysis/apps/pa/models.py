@@ -47,8 +47,16 @@ class ReportingPeriod(models.Model):
     def describe_categories(self):
         return [c.describe_self() for c in self.categories.all()]
 
-    def retrieve_entries(self):
-        pass
+    def retrieve_user_entries(self, user):
+        # barf
+        return ActivityEntry.objects.filter(
+            user=user,
+            activity__category__reportingperiod=self
+        )
+
+    def retrieve_user_entries_by_day(self, user, day):
+        # barf
+        return self.retrieve_user_entries.filter(day=day)
 
 
 class Activity(models.Model):
