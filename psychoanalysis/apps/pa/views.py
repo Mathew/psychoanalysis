@@ -16,6 +16,12 @@ def day_view(request, reporting_period_id, day):
     entries = period.retrieve_user_entries_by_day(request.user, day)
     entries = simplejson.dumps([e.to_dict() for e in entries])
 
+    if request.POST:
+        for k, v in simplejson.loads(data):
+            ae = ActivityEntry.objects.get(pk=k)
+            ae.activity.pk = v
+            ae.save()
+
     category_info = period.describe_categories()
 
     return render(request, 'day_entry_mockup.html', {
