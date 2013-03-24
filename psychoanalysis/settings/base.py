@@ -152,3 +152,4 @@ LOGGING = {
 }
 
 AUTH_USER_MODEL = 'pa.User'
+LOGIN_URL = '/login'

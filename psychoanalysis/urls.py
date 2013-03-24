@@ -18,6 +18,6 @@ urlpatterns = patterns(
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^day_entry_mockup/$', TemplateView.as_view(template_name='day_entry_mockup.html')),
     url(r'^admin/', include(admin.site.urls)),
+    url(r'^', TemplateView.as_view(template_name='base.html')),
 )
