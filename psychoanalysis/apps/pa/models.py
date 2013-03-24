@@ -1,6 +1,7 @@
 from django.conf import settings
 from django.contrib.auth.models import AbstractUser
 from django.db import models
+from django.forms.models import model_to_dict
 
 
 class Category(models.Model):
@@ -87,6 +88,9 @@ class ActivityEntry(models.Model):
             self.hour,
             self.slot
         )
+
+    def to_dict(self):
+        return model_to_dict(self, fields=['day', 'hour', 'slot', 'activity', 'user'])
 
     class Meta:
         verbose_name_plural = "Activity entries"
