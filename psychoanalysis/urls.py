@@ -7,6 +7,8 @@ admin.autodiscover()
 urlpatterns = patterns(
     '',
     url(r'^', include('psychoanalysis.apps.pa.urls')),
+    url(r'^', include('psychoanalysis.apps.pauth.urls')),
+    url(r'^padmin/', include('psychoanalysis.apps.padmin.urls')),
     # Examples:
     # url(r'^$', 'psychoanalysis.views.home', name='home'),
     # url(r'^psychoanalysis/', include('psychoanalysis.foo.urls')),
@@ -16,6 +18,5 @@ urlpatterns = patterns(
 
     # Uncomment the next line to enable the admin:
     # url(r'^admin/', include(admin.site.urls)),
-    url(r'^day_entry_mockup/$', TemplateView.as_view(template_name='day_entry_mockup.html')),
     url(r'^admin/', include(admin.site.urls)),
 )

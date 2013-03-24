@@ -4,7 +4,6 @@ DEBUG = TEMPLATE_DEBUG = True
 
 INSTALLED_APPS = INSTALLED_APPS + (
     'debug_toolbar',
-    'south',
 )
 
 MIDDLEWARE_CLASSES = MIDDLEWARE_CLASSES + (

@@ -1,10 +1,11 @@
-from django.conf.urls import patterns  # , include, url
-from psychoanalysis.apps.pa import charting
+from django.conf.urls import patterns
 
 
 urlpatterns = patterns(
-    '',
-    # url(r'^$', 'psychoanalysis.views.home', name='home'),
-    # url(r'^psychoanalysis/', include('psychoanalysis.foo.urls')),
+    'psychoanalysis.apps.pa.views',
+    url(r'^entry/(?P<reporting_period_id>\d+)/day/(?P<day>\d+)/$', 'day_view',
+        name='entry_day'),
+    url(r'^entry-list/(?P<reporting_period_id>\d+)/$', 'reporting_period_view',
+        name='reporting_period_view'),
 )
 
