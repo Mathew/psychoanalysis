@@ -1,3 +1,4 @@
+import datetime
 import simplejson
 
 from django.contrib.auth.decorators import login_required
@@ -17,9 +18,9 @@ def day_view(request, reporting_period_id, day):
     entries = simplejson.dumps([e.to_dict() for e in entries])
 
     if request.POST:
-        for k, v in simplejson.loads(data):
+        for k, v in simplejson.loads(request.POST['data']):
             ae = ActivityEntry.objects.get(pk=k)
-            ae.activity.pk = v
+            ae.activity_pk = v
             ae.save()
 
     category_info = period.describe_categories()
@@ -28,4 +29,28 @@ def day_view(request, reporting_period_id, day):
         'category_data': simplejson.dumps(category_info),
         'entries': entries,
         'day': day,
+    })
+
+
+def create_date_info(base, x, reporting_period_id):
+    return {
+        'date': (base - datetime.timedelta(days=x)).strftime("%A %d/%m/%y"),
+        'reporting_period_id': reporting_period_id,
+        'day': x
+    }
+
+
+@login_required()
+def reporting_period_view(request, reporting_period_id):
+    period = ReportingPeriod.objects.get(pk=reporting_period_id)
+    data = []
+
+    diff = period.end_date - period.start_date
+    for x in xrange(1, diff.days + 1):
+        data.append(create_date_info(period.start_date, x, reporting_period_id))
+
+    print data
+
+    return render(request, 'pa/reporting_period_view.html', {
+        'dates': data
     })
